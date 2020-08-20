@@ -1,1 +1,32 @@
 {% extends "base.html" %}
+
+{% block content %}
+  <form action="" method="post" novalidate autocomplete="off">
+    {{ form.hidden_tag() }}
+    <p>
+      {{ form.task.label }}<br>
+      {{ form.task(autocomplete = "off") }}
+      {% for error in form.task.errors %}
+        <span style=" color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </p>
+      <p>
+      {{ form.deadline.label }}<br>
+      {{ form.deadline }}
+      {% for error in form.deadline.errors %}
+        <span style=" color: red;">[{{ error }}]</span>
+      {% endfor %}
+    </p>
+    <p>
+      {{ form.submit() }}
+    </p>
+  </form>
+  <h2>Upcoming tasks</h2>
+  {% for e in upcoming %}
+    <p>{{ e.task }}<br>{{ e.date.date() }}<br><a href={{ url_for('mark_completed', entryID = e.id) }}>Done</a></p>
+  {% endfor %}
+  <h2>Overdue tasks</h2>
+  {% for e in overdue %}
+    <p>{{ e.task }}<br>{{ e.date.date() }}<br><a href = {{ url_for('mark_completed', entryID = e.id) }}>Done</a></p>
+  {% endfor %}
+{% endblock %}

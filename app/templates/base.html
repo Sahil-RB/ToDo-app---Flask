@@ -5,6 +5,8 @@
     <title></title>
   </head>
   <body>
+    <nav>
+      <a href={{ url_for('completed') }}>CompletedTasks</a>
     <hr>
     {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -16,25 +18,6 @@
     <hr>
     {% endif %}
     {% endwith %}
-    <form action="" method="post" novalidate autocomplete="off">
-      {{ form.hidden_tag() }}
-      <p>
-        {{ form.task.label }}<br>
-        {{ form.task(autocomplete = "off") }}
-        {% for error in form.task.errors %}
-          <span style=" color: red;">[{{ error }}]</span>
-        {% endfor %}
-      </p>
-      <p>
-        {{ form.deadline.label }}<br>
-        {{ form.deadline }}
-        {% for error in form.deadline.errors %}
-          <span style=" color: red;">[{{ error }}]</span>
-        {% endfor %}
-      </p>
-      <p>
-        {{ form.submit() }}
-      </p>
-    </form>
+    {% block content %}{% endblock %}
   </body>
 </html>
